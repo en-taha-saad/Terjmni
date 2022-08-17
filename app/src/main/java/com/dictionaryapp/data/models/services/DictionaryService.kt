@@ -1,9 +1,7 @@
 package com.dictionaryapp.data.models.services
 
-import android.util.Log
 import com.dictionaryapp.data.models.DictionaryAPI
 import com.dictionaryapp.data.models.NetworkResult
-import com.dictionaryapp.utils.Constant
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 
