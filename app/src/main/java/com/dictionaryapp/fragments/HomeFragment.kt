@@ -4,9 +4,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import com.dictionaryapp.adapter.ItemListener
+import com.dictionaryapp.adapter.MeaningsAdapter
 import com.dictionaryapp.base_classes.BaseFragment
 import com.dictionaryapp.data.models.DictionaryAPI
 import com.dictionaryapp.data.models.DictionaryDataManager
+import com.dictionaryapp.data.models.Meanings
 import com.dictionaryapp.data.models.NetworkResult
 import com.dictionaryapp.databinding.HomeFragmentBinding
 import com.dictionaryapp.utils.Constant
@@ -14,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class HomeFragment : BaseFragment<HomeFragmentBinding>() {
+class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
 
     private val dictionaryDataManager = DictionaryDataManager()
     private var word: String = "hi"
@@ -41,15 +44,23 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     }
 
     private fun onResponseSuccess(dictionary: DictionaryAPI) {
+        setupMeaningsAdapter(dictionary.meanings)
+
         binding.word.text = dictionary.word
     }
-
+    private fun setupMeaningsAdapter(meanings: List<Meanings>) {
+        val meaningsAdapter = MeaningsAdapter(meanings, this)
+        binding.meanings.adapter = meaningsAdapter
+    }
     private fun onResponseLoading() {
 
     }
 
     private fun onResponseFail(message: String) {
         Log.i(Constant.TAG, message)
+    }
+
+    override fun onClickItem(singleMeaning: Meanings) {
     }
 
 }
