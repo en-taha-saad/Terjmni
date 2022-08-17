@@ -1,11 +1,14 @@
 package com.dictionaryapp
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+import android.view.LayoutInflater
+import com.dictionaryapp.base_classes.BaseActivity
+import com.dictionaryapp.databinding.ActivityMainBinding
+
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    override val inflate: (LayoutInflater) -> ActivityMainBinding = ActivityMainBinding::inflate
+    override fun setup() {
     }
+
 }
