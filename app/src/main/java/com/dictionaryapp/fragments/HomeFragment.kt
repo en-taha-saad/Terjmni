@@ -26,11 +26,13 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
 
 
     override fun setup() {
-        getDictionaryData()
-        binding.refreshButton.setOnClickListener {
-            getDictionaryData()
-        }
+        binding.apply {
+            refreshButton.setOnClickListener {
+                getDictionaryData()
+            }
 
+        }
+        getDictionaryData()
     }
 
     private fun getDictionaryData() {
@@ -51,28 +53,28 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         setupMeaningsAdapter(dictionary.meanings)
         setupPhoneticsAdapter(dictionary.phonetics)
         binding.apply {
-            errorScreen.visibility = View.GONE
-            loading.visibility = View.GONE
-            content.visibility = View.VISIBLE
+            errorScreen.hide()
+            loading.hide()
+            content.show()
             word.text = dictionary.word
+
         }
     }
 
+
     private fun onResponseLoading() {
         binding.apply {
-            errorScreen.visibility = View.GONE
-            loading.visibility = View.VISIBLE
-            content.visibility = View.GONE
-
+            errorScreen.hide()
+            loading.show()
+            content.hide()
         }
-
     }
 
     private fun onResponseFail(message: String) {
         binding.apply {
-            errorScreen.visibility = View.VISIBLE
-            loading.visibility = View.GONE
-            content.visibility = View.GONE
+            errorScreen.show()
+            loading.hide()
+            content.hide()
             errorText.text = message
         }
     }
@@ -83,11 +85,22 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
     }
 
     override fun onClickItem(singleMeaning: Meanings) {
+
     }
+
 
     private fun setupPhoneticsAdapter(phonetics: List<Phonetics>) {
         val phoneticsAdapter = PhoneticsAdapter(phonetics)
         binding.wordPhonetics.adapter = phoneticsAdapter
     }
+
+    private fun View.hide() {
+        this.visibility = View.GONE
+    }
+
+    private fun View.show() {
+        this.visibility = View.VISIBLE
+    }
+
 
 }
