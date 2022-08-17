@@ -7,7 +7,5 @@ object Constant {
     const val SECOND_PATH = "v2"
     const val THIRD_PATH = "entries"
     const val FORTH_PATH = "en"
-
-
     const val TAG = "debug"
 }
