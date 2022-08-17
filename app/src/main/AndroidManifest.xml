@@ -14,7 +14,7 @@
         android:theme="@style/Theme.DictionaryApp"
         tools:targetApi="31">
         <activity
-            android:name="com.devtaha.dictionaryapp.MainActivity"
+            android:name="com.dictionaryapp.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

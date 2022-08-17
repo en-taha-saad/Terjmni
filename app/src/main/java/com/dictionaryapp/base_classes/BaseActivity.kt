@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.devtahadictionaryapp.R
+import com.dictionaryapp.R
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 

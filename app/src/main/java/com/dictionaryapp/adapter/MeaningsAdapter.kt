@@ -2,7 +2,6 @@ package com.dictionaryapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dictionaryapp.data.models.Meanings
 import com.dictionaryapp.databinding.SingleMeaningCardBinding
@@ -12,7 +11,7 @@ class MeaningsAdapter(
     private val meaningsList: List<Meanings>,
     private val itemListener: ItemListener
 ) :
-    RecyclerView.Adapter<MeaningsAdapter.MeaningViewHolder>(), ListAdapter {
+    RecyclerView.Adapter<MeaningsAdapter.MeaningViewHolder>() {
 
 
     inner class MeaningViewHolder(val binding: SingleMeaningCardBinding) :

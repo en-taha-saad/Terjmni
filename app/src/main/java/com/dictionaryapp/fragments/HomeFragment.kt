@@ -1,16 +1,14 @@
 package com.dictionaryapp.fragments
 
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.dictionaryapp.adapter.ItemListener
 import com.dictionaryapp.adapter.MeaningsAdapter
 import com.dictionaryapp.base_classes.BaseFragment
+import com.dictionaryapp.data.DictionaryDataManager
+import com.dictionaryapp.data.NetworkResult
 import com.dictionaryapp.data.models.DictionaryAPI
-import com.dictionaryapp.data.models.DictionaryDataManager
 import com.dictionaryapp.data.models.Meanings
-import com.dictionaryapp.data.models.NetworkResult
 import com.dictionaryapp.databinding.HomeFragmentBinding
 import com.dictionaryapp.utils.Constant
 import kotlinx.coroutines.Dispatchers
@@ -18,11 +16,12 @@ import kotlinx.coroutines.launch
 
 
 class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
+    override fun bindingInflater(): HomeFragmentBinding =
+        HomeFragmentBinding.inflate(layoutInflater)
+
 
     private val dictionaryDataManager = DictionaryDataManager()
     private var word: String = "hi"
-    override val inflate: (LayoutInflater, ViewGroup?, attachToRoot: Boolean) -> HomeFragmentBinding =
-        HomeFragmentBinding::inflate
 
 
     override fun setup() {
@@ -48,10 +47,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
 
         binding.word.text = dictionary.word
     }
+
     private fun setupMeaningsAdapter(meanings: List<Meanings>) {
         val meaningsAdapter = MeaningsAdapter(meanings, this)
         binding.meanings.adapter = meaningsAdapter
     }
+
     private fun onResponseLoading() {
 
     }

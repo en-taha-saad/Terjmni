@@ -59,13 +59,14 @@
         android:textStyle="italic"
         app:layout_constraintTop_toBottomOf="@+id/word_phonetics" />
 
-    <GridView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/meanings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:numColumns="2"
+        android:orientation="vertical"
         android:padding="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/meaningTitle"
         tools:listitem="@layout/single_meaning_card" />
 
