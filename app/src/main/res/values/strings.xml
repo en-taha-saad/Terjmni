@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">dictionaryApp</string>
+    <string name="app_name">Terjmni</string>
+    <string name="word">word</string>
+    <string name="meaningTitle">Meanings</string>
+    <string name="part_of_speech">part of speech</string>
 </resources>
