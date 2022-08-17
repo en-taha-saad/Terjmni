@@ -1,4 +1,4 @@
-package com.devtahadictionaryapp
+package com.dictionaryapp
 
 import org.junit.Test
 
