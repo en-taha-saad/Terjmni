@@ -2,4 +2,5 @@
 <resources>
     <dimen name="radius">8dp</dimen>
     <dimen name="elevation">8dp</dimen>
+    <dimen name="error_text">18sp</dimen>
 </resources>

@@ -1,16 +1,17 @@
 package com.dictionaryapp.fragments
 
-import android.util.Log
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.dictionaryapp.adapter.ItemListener
 import com.dictionaryapp.adapter.MeaningsAdapter
+import com.dictionaryapp.adapter.PhoneticsAdapter
 import com.dictionaryapp.base_classes.BaseFragment
 import com.dictionaryapp.data.DictionaryDataManager
 import com.dictionaryapp.data.NetworkResult
 import com.dictionaryapp.data.models.DictionaryAPI
 import com.dictionaryapp.data.models.Meanings
+import com.dictionaryapp.data.models.Phonetics
 import com.dictionaryapp.databinding.HomeFragmentBinding
-import com.dictionaryapp.utils.Constant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,6 +27,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
 
     override fun setup() {
         getDictionaryData()
+        binding.refreshButton.setOnClickListener {
+            getDictionaryData()
+        }
+
     }
 
     private fun getDictionaryData() {
@@ -44,8 +49,32 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
 
     private fun onResponseSuccess(dictionary: DictionaryAPI) {
         setupMeaningsAdapter(dictionary.meanings)
+        setupPhoneticsAdapter(dictionary.phonetics)
+        binding.apply {
+            errorScreen.visibility = View.GONE
+            loading.visibility = View.GONE
+            content.visibility = View.VISIBLE
+            word.text = dictionary.word
+        }
+    }
 
-        binding.word.text = dictionary.word
+    private fun onResponseLoading() {
+        binding.apply {
+            errorScreen.visibility = View.GONE
+            loading.visibility = View.VISIBLE
+            content.visibility = View.GONE
+
+        }
+
+    }
+
+    private fun onResponseFail(message: String) {
+        binding.apply {
+            errorScreen.visibility = View.VISIBLE
+            loading.visibility = View.GONE
+            content.visibility = View.GONE
+            errorText.text = message
+        }
     }
 
     private fun setupMeaningsAdapter(meanings: List<Meanings>) {
@@ -53,15 +82,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         binding.meanings.adapter = meaningsAdapter
     }
 
-    private fun onResponseLoading() {
-
-    }
-
-    private fun onResponseFail(message: String) {
-        Log.i(Constant.TAG, message)
-    }
-
     override fun onClickItem(singleMeaning: Meanings) {
+    }
+
+    private fun setupPhoneticsAdapter(phonetics: List<Phonetics>) {
+        val phoneticsAdapter = PhoneticsAdapter(phonetics)
+        binding.wordPhonetics.adapter = phoneticsAdapter
     }
 
 }
