@@ -12,6 +12,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override val inflate: (LayoutInflater) -> ActivityMainBinding = ActivityMainBinding::inflate
     override fun setup() {
+
         navToFragment(HomeFragment())
     }
 
