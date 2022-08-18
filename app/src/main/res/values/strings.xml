@@ -8,4 +8,9 @@
     <string name="ha_lo">ha-lo</string>
     <string name="single_meaning">single meaning</string>
     <string name="meaning">as a verb</string>
+    <string name="synonyms">Synonyms</string>
+    <string name="antonyms">antonyms</string>
+    <string name="antonyms_value">antonyms value</string>
+    <string name="synonyms_value">synonyms value</string>
+    <string name="definitionTitle">Definitions</string>
 </resources>
