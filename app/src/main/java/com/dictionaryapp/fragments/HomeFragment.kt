@@ -29,7 +29,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
 
 
     private val dictionaryDataManager = DictionaryDataManager()
-    private var word: String = "hi"
+    private var word: String = "go"
 
 
     override fun setup() {

@@ -29,7 +29,8 @@ class DefinitionsAdapter(
     override fun onBindViewHolder(holder: DefinitionViewHolder, position: Int) {
         val singleDefinition = definitionsList[position]
         holder.binding.apply {
-
+            definitionText.text = singleDefinition.definition
+            exampleText.text = singleDefinition.example ?: ""
         }
 
     }
