@@ -5,9 +5,12 @@
       <map>
         <entry key="..\:/Users/trans/Downloads/android_projects/dictionaryApp/app/src/main/res/layout/activity_main.xml" value="0.15989583333333332" />
         <entry key="..\:/Users/trans/Downloads/android_projects/dictionaryApp/app/src/main/res/layout/home_fragment.xml" value="0.17395833333333333" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.19" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.19" />
         <entry key="app/src/main/res/drawable/ic_baseline_autorenew_24.xml" value="0.19" />
+        <entry key="app/src/main/res/drawable/meaning_background.xml" value="0.19" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17239583333333333" />
-        <entry key="app/src/main/res/layout/home_fragment.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/home_fragment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/single_antonyms.xml" value="0.346875" />
         <entry key="app/src/main/res/layout/single_definition.xml" value="0.75" />
         <entry key="app/src/main/res/layout/single_meaning_card.xml" value="0.33" />

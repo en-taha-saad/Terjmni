@@ -10,7 +10,7 @@
         android:id="@+id/singleDefinitionCard"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:backgroundTint="@color/grey"
+        android:backgroundTint="@color/white"
         app:cardCornerRadius="@dimen/radius"
         app:cardElevation="@dimen/elevation">
 
