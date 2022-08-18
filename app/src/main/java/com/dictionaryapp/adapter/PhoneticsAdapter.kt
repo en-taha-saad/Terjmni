@@ -57,13 +57,18 @@ class PhoneticsAdapter(
         try {
             mediaPlayer.setAudioStreamType(android.media.AudioManager.STREAM_MUSIC)
             mediaPlayer.setDataSource(it)
+            Toast.makeText(
+                context,
+                "please, wait while audio is loading",
+                Toast.LENGTH_SHORT,
+            ).show()
             mediaPlayer.prepare()
             mediaPlayer.start()
         } catch (error: IOException) {
 
             Toast.makeText(
                 context,
-                "Error playing audio",
+                "audio is not available",
                 Toast.LENGTH_SHORT,
             ).show()
         }
