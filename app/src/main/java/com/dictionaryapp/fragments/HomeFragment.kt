@@ -95,7 +95,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
     private fun getAllMeanings(dictionary: List<DictionaryAPI>): List<Meanings> {
         val meaningsList = mutableListOf<Meanings>()
         meaningsList.addAll(dictionary[0].meanings)
-        meaningsList.addAll(dictionary[1].meanings)
+        if (dictionary.size > 1) {
+            meaningsList.addAll(dictionary[1].meanings)
+        }
         return meaningsList
     }
 

@@ -3,6 +3,7 @@ package com.dictionaryapp.adapter
 import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.dictionaryapp.data.models.Phonetics
 import com.dictionaryapp.databinding.SingleWordPhoneticBinding
@@ -13,13 +14,14 @@ class PhoneticsAdapter(
     private val phoneticsList: List<Phonetics>
 ) :
     RecyclerView.Adapter<PhoneticsAdapter.PhoneticViewHolder>() {
-    private val mediaPlayer = MediaPlayer()
-
+    var context: android.content.Context? = null
+    private var mediaPlayer = MediaPlayer()
 
     inner class PhoneticViewHolder(val binding: SingleWordPhoneticBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhoneticViewHolder {
+        context = parent.context
         return PhoneticViewHolder(
             SingleWordPhoneticBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -35,6 +37,7 @@ class PhoneticsAdapter(
             phoneticWord.text = singlePhonetic.text
             phoneticAudio.setOnClickListener {
                 singlePhonetic.audio?.let {
+                    mediaPlayer = MediaPlayer()
                     if (mediaPlayer.isPlaying) {
                         mediaPlayer.stop()
                         mediaPlayer.reset()
@@ -51,13 +54,18 @@ class PhoneticsAdapter(
 
     @Suppress("DEPRECATION")
     private fun playAudio(it: String) {
-        mediaPlayer.setAudioStreamType(android.media.AudioManager.STREAM_MUSIC)
         try {
+            mediaPlayer.setAudioStreamType(android.media.AudioManager.STREAM_MUSIC)
             mediaPlayer.setDataSource(it)
             mediaPlayer.prepare()
             mediaPlayer.start()
         } catch (error: IOException) {
-            error.printStackTrace()
+
+            Toast.makeText(
+                context,
+                "Error playing audio",
+                Toast.LENGTH_SHORT,
+            ).show()
         }
 
     }
