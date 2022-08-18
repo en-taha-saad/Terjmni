@@ -43,6 +43,44 @@
 
 
     <LinearLayout
+        android:id="@+id/searchCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/action_bar">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/yellow"
+            app:cardCornerRadius="@dimen/radius"
+            app:cardElevation="@dimen/elevation">
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search words" />
+        </androidx.cardview.widget.CardView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/search_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/search" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/error_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -52,7 +90,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/searchCard">
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="wrap_content"
@@ -81,51 +119,30 @@
 
     </LinearLayout>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="120dp"
         android:visibility="visible"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/action_bar">
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/searchCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:backgroundTint="@color/yellow"
-            app:cardCornerRadius="@dimen/radius"
-            app:cardElevation="@dimen/elevation"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <SearchView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:iconifiedByDefault="false"
-                android:queryHint="Search words" />
-
-        </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toBottomOf="@+id/searchCard">
 
         <TextView
             android:id="@+id/word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-
             android:padding="8dp"
             android:text="@string/word"
             android:textAlignment="center"
             android:textColor="@color/yellow"
             android:textSize="28sp"
             android:textStyle="italic"
-            app:layout_constraintTop_toBottomOf="@+id/searchCard" />
+            app:layout_constraintTop_toTopOf="@+id/content" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/word_phonetics"
@@ -152,12 +169,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/meanings"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:foregroundGravity="center"
             android:orientation="vertical"
             android:padding="8dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/content"
             app:layout_constraintStart_toStartOf="@+id/content"
             app:layout_constraintTop_toBottomOf="@id/meaningTitle"

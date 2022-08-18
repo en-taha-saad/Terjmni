@@ -39,8 +39,10 @@ class PhoneticsAdapter(
                         mediaPlayer.stop()
                         mediaPlayer.reset()
                         mediaPlayer.release()
+                    } else {
+                        playAudio(it)
+
                     }
-                    playAudio(it)
                 }
             }
         }

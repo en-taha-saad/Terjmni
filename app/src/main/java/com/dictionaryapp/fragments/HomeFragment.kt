@@ -1,6 +1,8 @@
 package com.dictionaryapp.fragments
 
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,6 +18,7 @@ import com.dictionaryapp.data.models.Meanings
 import com.dictionaryapp.data.models.Phonetics
 import com.dictionaryapp.data.models.WordDetails
 import com.dictionaryapp.databinding.HomeFragmentBinding
+import com.dictionaryapp.utils.Constant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -32,11 +35,32 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
     override fun setup() {
         binding.apply {
             refreshButton.setOnClickListener {
-                getDictionaryData()
+                searchForWord()
             }
 
+            searchIcon.setOnClickListener {
+                searchForWord()
+            }
         }
         getDictionaryData()
+    }
+
+    private fun searchForWord() {
+        binding.apply {
+            if (searchView.query.toString().isNotEmpty()) {
+                this@HomeFragment.word = searchView.query.toString()
+                searchView.clearFocus()
+                getDictionaryData()
+            } else {
+                Toast.makeText(
+                    context,
+                    "please, enter a word to search",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
+
     }
 
     private fun getDictionaryData() {
@@ -46,6 +70,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
     }
 
     private fun onGetResponse(state: NetworkResult<List<DictionaryAPI>>) {
+        Log.i(Constant.TAG, "state = $state")
         when (state) {
             is NetworkResult.Fail -> onResponseFail(state.message)
             is NetworkResult.Loading -> onResponseLoading()
@@ -102,6 +127,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         binding.meanings.apply {
             layoutManager = gridLayoutManager
             adapter = meaningsAdapter
+
         }
     }
 
