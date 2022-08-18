@@ -1,7 +1,6 @@
 package com.dictionaryapp
 
 
-import android.content.Intent
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import com.dictionaryapp.base_classes.BaseActivity

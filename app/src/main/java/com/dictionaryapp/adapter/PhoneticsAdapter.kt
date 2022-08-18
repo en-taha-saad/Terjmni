@@ -14,7 +14,7 @@ class PhoneticsAdapter(
     private val phoneticsList: List<Phonetics>
 ) :
     RecyclerView.Adapter<PhoneticsAdapter.PhoneticViewHolder>() {
-    var context: android.content.Context? = null
+    private var context: android.content.Context? = null
     private var mediaPlayer = MediaPlayer()
 
     inner class PhoneticViewHolder(val binding: SingleWordPhoneticBinding) :
@@ -39,17 +39,20 @@ class PhoneticsAdapter(
                 singlePhonetic.audio?.let {
                     mediaPlayer = MediaPlayer()
                     if (mediaPlayer.isPlaying) {
-                        mediaPlayer.stop()
-                        mediaPlayer.reset()
-                        mediaPlayer.release()
+                        stopAudio()
                     } else {
                         playAudio(it)
-
                     }
                 }
             }
         }
 
+    }
+
+    private fun stopAudio() {
+        mediaPlayer.stop()
+        mediaPlayer.reset()
+        mediaPlayer.release()
     }
 
     @Suppress("DEPRECATION")
@@ -74,7 +77,6 @@ class PhoneticsAdapter(
         }
 
     }
-
 
     override fun getItemCount() = phoneticsList.size
 

@@ -3,13 +3,12 @@ package com.dictionaryapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dictionaryapp.data.models.Definitions
-import com.dictionaryapp.data.models.DictionaryAPI
 import com.dictionaryapp.data.models.Meanings
 import com.dictionaryapp.data.models.WordDetails
 import com.dictionaryapp.databinding.SingleMeaningCardBinding
-import com.dictionaryapp.databinding.WordDetailsFragmentBinding
-import com.dictionaryapp.fragments.WordDetailsFragment
+import com.dictionaryapp.utils.getAllDefinitions
+import com.dictionaryapp.utils.putAorAnToWord
+import com.dictionaryapp.utils.sureThatItIsNotEmpty
 
 
 class MeaningsAdapter(
@@ -33,6 +32,8 @@ class MeaningsAdapter(
         )
     }
 
+    override fun getItemCount() = meaningsList.size
+
     override fun onBindViewHolder(holder: MeaningViewHolder, position: Int) {
         val singleMeaning = meaningsList[position]
         var synonyms = ""
@@ -41,19 +42,13 @@ class MeaningsAdapter(
             wordCard.text = word
             wordMeaning.text = putAorAnToWord(singleMeaning.partOfSpeech ?: "")
 
-            if (singleMeaning.synonyms.isNotEmpty()) {
-                synonyms = singleMeaning.synonyms.joinToString(separator = "\n") { it }
-            }
-            if (singleMeaning.antonyms.isNotEmpty()) {
-                antonyms = singleMeaning.antonyms.joinToString(separator = "\n") { it }
-            }
+            synonyms = sureThatItIsNotEmpty(singleMeaning, synonyms)
+            antonyms = sureThatItIsNotEmpty(singleMeaning, antonyms)
 
             navigateToWordDetails.setOnClickListener {
                 itemListener.onClickItem(
                     WordDetails(
-                        getAllDefinitions(),
-                        synonyms, antonyms
-
+                        getAllDefinitions(meaningsList), synonyms, antonyms,
                     )
                 )
 
@@ -62,29 +57,5 @@ class MeaningsAdapter(
 
     }
 
-    private fun getAllDefinitions(): List<Definitions> {
-        val definitionsList = mutableListOf<Definitions>()
-        meaningsList.map { meanings ->
-            meanings.definitions.map { definition ->
-                definitionsList.add(definition)
-            }
-        }
-        return definitionsList
-    }
-
-
-    private fun putAorAnToWord(word: String): String {
-        if (word.startsWith("a") || word.startsWith("e") || word.startsWith(
-                "i"
-            ) || word.startsWith("o") || word.startsWith("u")
-        ) {
-            return "an $word"
-        } else {
-            return "a $word"
-        }
-    }
-
-
-    override fun getItemCount() = meaningsList.size
 
 }

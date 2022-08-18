@@ -1,7 +1,5 @@
 package com.dictionaryapp.fragments
 
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +16,8 @@ import com.dictionaryapp.data.models.Meanings
 import com.dictionaryapp.data.models.Phonetics
 import com.dictionaryapp.data.models.WordDetails
 import com.dictionaryapp.databinding.HomeFragmentBinding
-import com.dictionaryapp.utils.Constant
+import com.dictionaryapp.utils.hide
+import com.dictionaryapp.utils.show
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -33,6 +32,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
 
 
     override fun setup() {
+        getDictionaryData()
+
         binding.apply {
             refreshButton.setOnClickListener {
                 searchForWord()
@@ -42,7 +43,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
                 searchForWord()
             }
         }
-        getDictionaryData()
     }
 
     private fun searchForWord() {
@@ -70,7 +70,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
     }
 
     private fun onGetResponse(state: NetworkResult<List<DictionaryAPI>>) {
-        Log.i(Constant.TAG, "state = $state")
         when (state) {
             is NetworkResult.Fail -> onResponseFail(state.message)
             is NetworkResult.Loading -> onResponseLoading()
@@ -101,6 +100,39 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         return meaningsList
     }
 
+
+    private fun setupMeaningsAdapter(meanings: List<Meanings>) {
+        val meaningsAdapter = MeaningsAdapter(word, meanings, this)
+        val gridLayoutManager = GridLayoutManager(
+            context,
+            2,
+            GridLayoutManager.VERTICAL,
+            false,
+        )
+        binding.meanings.apply {
+            layoutManager = gridLayoutManager
+            adapter = meaningsAdapter
+
+        }
+    }
+
+
+    private fun setupPhoneticsAdapter(phonetics: List<Phonetics>) {
+        val phoneticsAdapter = PhoneticsAdapter(phonetics)
+        binding.wordPhonetics.adapter = phoneticsAdapter
+    }
+
+
+    override fun onClickItem(wordDetails: WordDetails) {
+        navToFragment(
+            WordDetailsFragment.newInstance(
+                wordDetails
+            )
+        )
+
+
+    }
+
     private fun onResponseLoading() {
         binding.apply {
             errorScreen.hide()
@@ -118,50 +150,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         }
     }
 
-    private fun setupMeaningsAdapter(meanings: List<Meanings>) {
-        val meaningsAdapter = MeaningsAdapter(word, meanings, this)
-        val gridLayoutManager = GridLayoutManager(
-            context,
-            2,
-            GridLayoutManager.VERTICAL,
-            false,
-        )
-        binding.meanings.apply {
-            layoutManager = gridLayoutManager
-            adapter = meaningsAdapter
-
-        }
-    }
-
     private fun navToFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container, fragment).commit()
     }
-
-    override fun onClickItem(wordDetails: WordDetails) {
-        navToFragment(
-            WordDetailsFragment.newInstance(
-                wordDetails
-            )
-        )
-
-
-    }
-
-
-    private fun setupPhoneticsAdapter(phonetics: List<Phonetics>) {
-        val phoneticsAdapter = PhoneticsAdapter(phonetics)
-        binding.wordPhonetics.adapter = phoneticsAdapter
-    }
-
-
-    private fun View.hide() {
-        this.visibility = View.GONE
-    }
-
-    private fun View.show() {
-        this.visibility = View.VISIBLE
-    }
-
 
 }

@@ -2,7 +2,6 @@ package com.dictionaryapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.dictionaryapp.R
 import com.dictionaryapp.adapter.DefinitionsAdapter
 import com.dictionaryapp.base_classes.BaseFragment
 import com.dictionaryapp.data.models.Definitions
@@ -19,7 +18,6 @@ class WordDetailsFragment : BaseFragment<WordDetailsFragmentBinding>() {
     override fun setup() {
         argumentsFromHome = arguments?.getParcelable(KEY)!!
         bindData(argumentsFromHome)
-        //        back_button
     }
 
 
@@ -34,16 +32,18 @@ class WordDetailsFragment : BaseFragment<WordDetailsFragmentBinding>() {
         }
     }
 
-    private fun removeFragment(fragment: Fragment) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .remove(fragment).commit()
-    }
-
 
     private fun setupDefinitionsAdapter(definitions: List<Definitions>) {
         val definitionsAdapter = DefinitionsAdapter(definitions)
         binding.definitionsList.adapter = definitionsAdapter
     }
+
+
+    private fun removeFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .remove(fragment).commit()
+    }
+
 
     companion object {
         fun newInstance(wordDetails: WordDetails) = WordDetailsFragment().apply {
@@ -52,7 +52,7 @@ class WordDetailsFragment : BaseFragment<WordDetailsFragmentBinding>() {
             }
         }
 
-
         private const val KEY = "word_details"
     }
+
 }
