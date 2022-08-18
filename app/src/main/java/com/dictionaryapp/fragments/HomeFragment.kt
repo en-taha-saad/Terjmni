@@ -2,6 +2,7 @@ package com.dictionaryapp.fragments
 
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.dictionaryapp.adapter.ItemListener
 import com.dictionaryapp.adapter.MeaningsAdapter
 import com.dictionaryapp.adapter.PhoneticsAdapter
@@ -45,18 +46,21 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         when (state) {
             is NetworkResult.Fail -> onResponseFail(state.message)
             is NetworkResult.Loading -> onResponseLoading()
-            is NetworkResult.Success -> onResponseSuccess(state.data[0])
+            is NetworkResult.Success -> onResponseSuccess(state.data)
         }
     }
 
-    private fun onResponseSuccess(dictionary: DictionaryAPI) {
-        setupMeaningsAdapter(dictionary.meanings)
-        setupPhoneticsAdapter(dictionary.phonetics)
+    private fun onResponseSuccess(dictionary: List<DictionaryAPI>) {
+        val meaningsList = mutableListOf<Meanings>()
+        meaningsList.addAll(dictionary[0].meanings)
+        meaningsList.addAll(dictionary[1].meanings)
+        setupMeaningsAdapter(meaningsList)
+        setupPhoneticsAdapter(dictionary[0].phonetics)
         binding.apply {
             errorScreen.hide()
             loading.hide()
             content.show()
-            word.text = dictionary.word
+            word.text = dictionary[0].word
 
         }
     }
@@ -80,8 +84,17 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
     }
 
     private fun setupMeaningsAdapter(meanings: List<Meanings>) {
-        val meaningsAdapter = MeaningsAdapter(meanings, this)
-        binding.meanings.adapter = meaningsAdapter
+        val meaningsAdapter = MeaningsAdapter(word, meanings, this)
+        val gridLayoutManager = GridLayoutManager(
+            context,
+            2,
+            GridLayoutManager.VERTICAL,
+            false,
+        )
+        binding.meanings.apply {
+            layoutManager = gridLayoutManager
+            adapter = meaningsAdapter
+        }
     }
 
     override fun onClickItem(singleMeaning: Meanings) {
