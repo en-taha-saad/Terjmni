@@ -4,8 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dictionaryapp.data.models.Definitions
+import com.dictionaryapp.data.models.DictionaryAPI
 import com.dictionaryapp.data.models.Meanings
+import com.dictionaryapp.data.models.WordDetails
 import com.dictionaryapp.databinding.SingleMeaningCardBinding
+import com.dictionaryapp.databinding.WordDetailsFragmentBinding
+import com.dictionaryapp.fragments.WordDetailsFragment
 
 
 class MeaningsAdapter(
@@ -31,21 +35,34 @@ class MeaningsAdapter(
 
     override fun onBindViewHolder(holder: MeaningViewHolder, position: Int) {
         val singleMeaning = meaningsList[position]
-        // merge two lists into one list
-        val definitionsList = mutableListOf<Definitions>()
-        definitionsList
+
         holder.binding.apply {
-            singleMeaningCard.setOnClickListener {
-                itemListener.onClickItem(singleMeaning)
-            }
+
             wordCard.text = word
             wordMeaning.text = putAorAnToWord(singleMeaning.partOfSpeech ?: "")
             navigateToWordDetails.setOnClickListener {
+
+                itemListener.onClickItem(WordDetails(
+                    getAllDefinitions(),
+                    singleMeaning.synonyms.joinToString(separator = "\n") { it },
+                    singleMeaning.antonyms.joinToString(separator = "\n") { it }
+                ))
 
             }
         }
 
     }
+
+    private fun getAllDefinitions(): List<Definitions> {
+        val definitionsList = mutableListOf<Definitions>()
+        meaningsList.map { meanings ->
+            meanings.definitions.map { definition ->
+                definitionsList.add(definition)
+            }
+        }
+        return definitionsList
+    }
+
 
     private fun putAorAnToWord(word: String): String {
         if (word.startsWith("a") || word.startsWith("e") || word.startsWith(

@@ -1,8 +1,10 @@
 package com.dictionaryapp.fragments
 
+import android.os.Bundle
 import com.dictionaryapp.adapter.DefinitionsAdapter
 import com.dictionaryapp.base_classes.BaseFragment
 import com.dictionaryapp.data.models.Definitions
+import com.dictionaryapp.data.models.WordDetails
 import com.dictionaryapp.databinding.WordDetailsFragmentBinding
 
 
@@ -10,8 +12,11 @@ class WordDetailsFragment : BaseFragment<WordDetailsFragmentBinding>() {
     override fun bindingInflater(): WordDetailsFragmentBinding =
         WordDetailsFragmentBinding.inflate(layoutInflater)
 
-    override fun setup() {
+    private var argumentsFromHome: WordDetails? = null
 
+    override fun setup() {
+        argumentsFromHome = arguments?.getParcelable(KEY)!!
+        setupDefinitionsAdapter(argumentsFromHome?.definitions ?: emptyList())
     }
 
     private fun setupDefinitionsAdapter(definitions: List<Definitions>) {
@@ -19,4 +24,14 @@ class WordDetailsFragment : BaseFragment<WordDetailsFragmentBinding>() {
         binding.definitionsList.adapter = definitionsAdapter
     }
 
+    companion object {
+        fun newInstance(wordDetails: WordDetails) = WordDetailsFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(KEY, wordDetails)
+            }
+        }
+
+
+        private const val KEY = "word_details"
+    }
 }

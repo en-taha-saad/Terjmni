@@ -1,8 +1,10 @@
 package com.dictionaryapp.fragments
 
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.dictionaryapp.R
 import com.dictionaryapp.adapter.ItemListener
 import com.dictionaryapp.adapter.MeaningsAdapter
 import com.dictionaryapp.adapter.PhoneticsAdapter
@@ -12,7 +14,9 @@ import com.dictionaryapp.data.NetworkResult
 import com.dictionaryapp.data.models.DictionaryAPI
 import com.dictionaryapp.data.models.Meanings
 import com.dictionaryapp.data.models.Phonetics
+import com.dictionaryapp.data.models.WordDetails
 import com.dictionaryapp.databinding.HomeFragmentBinding
+import com.dictionaryapp.utils.replaceFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -50,10 +54,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         }
     }
 
+
     private fun onResponseSuccess(dictionary: List<DictionaryAPI>) {
-        val meaningsList = mutableListOf<Meanings>()
-        meaningsList.addAll(dictionary[0].meanings)
-        meaningsList.addAll(dictionary[1].meanings)
+        val meaningsList = getAllMeanings(dictionary)
         setupMeaningsAdapter(meaningsList)
         setupPhoneticsAdapter(dictionary[0].phonetics)
         binding.apply {
@@ -65,6 +68,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         }
     }
 
+    private fun getAllMeanings(dictionary: List<DictionaryAPI>): List<Meanings> {
+        val meaningsList = mutableListOf<Meanings>()
+        meaningsList.addAll(dictionary[0].meanings)
+        meaningsList.addAll(dictionary[1].meanings)
+        return meaningsList
+    }
 
     private fun onResponseLoading() {
         binding.apply {
@@ -97,7 +106,18 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         }
     }
 
-    override fun onClickItem(singleMeaning: Meanings) {
+    private fun replaceFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment).commit()
+    }
+
+    override fun onClickItem(wordDetails: WordDetails) {
+        replaceFragment(
+            WordDetailsFragment.newInstance(
+                wordDetails
+            )
+        )
+
 
     }
 

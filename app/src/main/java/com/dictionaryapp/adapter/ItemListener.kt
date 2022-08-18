@@ -1,8 +1,8 @@
 package com.dictionaryapp.adapter
 
-import com.dictionaryapp.data.models.Meanings
+import com.dictionaryapp.data.models.WordDetails
 
 
 interface ItemListener {
-    fun onClickItem(singleMeaning: Meanings)
+    fun onClickItem(wordDetails: WordDetails)
 }

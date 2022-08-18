@@ -14,7 +14,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         replaceFragment(HomeFragment())
     }
 
-    fun replaceFragment(fragment: Fragment) {
+    private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment).commit()
     }
