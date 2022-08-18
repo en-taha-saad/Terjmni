@@ -35,18 +35,27 @@ class MeaningsAdapter(
 
     override fun onBindViewHolder(holder: MeaningViewHolder, position: Int) {
         val singleMeaning = meaningsList[position]
-
+        var synonyms = ""
+        var antonyms = ""
         holder.binding.apply {
-
             wordCard.text = word
             wordMeaning.text = putAorAnToWord(singleMeaning.partOfSpeech ?: "")
-            navigateToWordDetails.setOnClickListener {
 
-                itemListener.onClickItem(WordDetails(
-                    getAllDefinitions(),
-                    singleMeaning.synonyms.joinToString(separator = "\n") { it },
-                    singleMeaning.antonyms.joinToString(separator = "\n") { it }
-                ))
+            if (singleMeaning.synonyms.isNotEmpty()) {
+                synonyms = singleMeaning.synonyms.joinToString(separator = "\n") { it }
+            }
+            if (singleMeaning.antonyms.isNotEmpty()) {
+                antonyms = singleMeaning.antonyms.joinToString(separator = "\n") { it }
+            }
+
+            navigateToWordDetails.setOnClickListener {
+                itemListener.onClickItem(
+                    WordDetails(
+                        getAllDefinitions(),
+                        synonyms, antonyms
+
+                    )
+                )
 
             }
         }

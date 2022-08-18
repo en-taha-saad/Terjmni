@@ -11,12 +11,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override val inflate: (LayoutInflater) -> ActivityMainBinding = ActivityMainBinding::inflate
     override fun setup() {
-        replaceFragment(HomeFragment())
+        navToFragment(HomeFragment())
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun navToFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment).commit()
+            .add(R.id.fragment_container, fragment).commit()
     }
 
 }

@@ -16,7 +16,6 @@ import com.dictionaryapp.data.models.Meanings
 import com.dictionaryapp.data.models.Phonetics
 import com.dictionaryapp.data.models.WordDetails
 import com.dictionaryapp.databinding.HomeFragmentBinding
-import com.dictionaryapp.utils.replaceFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -106,13 +105,13 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun navToFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment).commit()
+            .add(R.id.fragment_container, fragment).commit()
     }
 
     override fun onClickItem(wordDetails: WordDetails) {
-        replaceFragment(
+        navToFragment(
             WordDetailsFragment.newInstance(
                 wordDetails
             )

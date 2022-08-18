@@ -1,6 +1,8 @@
 package com.dictionaryapp.fragments
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import com.dictionaryapp.R
 import com.dictionaryapp.adapter.DefinitionsAdapter
 import com.dictionaryapp.base_classes.BaseFragment
 import com.dictionaryapp.data.models.Definitions
@@ -16,8 +18,27 @@ class WordDetailsFragment : BaseFragment<WordDetailsFragmentBinding>() {
 
     override fun setup() {
         argumentsFromHome = arguments?.getParcelable(KEY)!!
-        setupDefinitionsAdapter(argumentsFromHome?.definitions ?: emptyList())
+        bindData(argumentsFromHome)
+        //        back_button
     }
+
+
+    private fun bindData(args: WordDetails?) {
+        setupDefinitionsAdapter(args?.definitions ?: emptyList())
+        binding.apply {
+            backButton.setOnClickListener {
+                removeFragment(this@WordDetailsFragment)
+            }
+            antonymsStringValue.text = args?.antonyms
+            synonymsStringValue.text = args?.synonyms
+        }
+    }
+
+    private fun removeFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .remove(fragment).commit()
+    }
+
 
     private fun setupDefinitionsAdapter(definitions: List<Definitions>) {
         val definitionsAdapter = DefinitionsAdapter(definitions)

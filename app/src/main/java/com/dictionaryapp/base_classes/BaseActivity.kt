@@ -1,5 +1,6 @@
 package com.dictionaryapp.base_classes
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
