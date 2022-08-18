@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/singleMeaningCard"
+        android:id="@+id/singleDefinitionCard"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:backgroundTint="@color/grey"

@@ -8,7 +8,10 @@
         <entry key="app/src/main/res/drawable/ic_baseline_autorenew_24.xml" value="0.19" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/home_fragment.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/single_meaning_card.xml" value="0.17239583333333333" />
+        <entry key="app/src/main/res/layout/single_antonyms.xml" value="0.346875" />
+        <entry key="app/src/main/res/layout/single_definition.xml" value="0.75" />
+        <entry key="app/src/main/res/layout/single_meaning_card.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/single_synonyms.xml" value="0.346875" />
         <entry key="app/src/main/res/layout/single_word_phonetic.xml" value="0.33" />
         <entry key="app/src/main/res/layout/word_details_fragment.xml" value="0.17239583333333333" />
       </map>

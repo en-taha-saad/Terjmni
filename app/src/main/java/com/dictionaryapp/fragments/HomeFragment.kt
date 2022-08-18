@@ -94,6 +94,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), ItemListener {
         binding.wordPhonetics.adapter = phoneticsAdapter
     }
 
+
     private fun View.hide() {
         this.visibility = View.GONE
     }
