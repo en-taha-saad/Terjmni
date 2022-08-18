@@ -33,18 +33,15 @@
         android:textSize="16sp"
         android:textStyle="italic" />
 
-    <ImageButton
+
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/navigate_to_word_details"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="18dp"
-        android:backgroundTint="@color/yellow"
-        android:contentDescription="@string/image_content"
-        android:src="@drawable/ic_baseline_arrow_forward_24"
-        app:cardCornerRadius="@dimen/radius"
-        app:cardElevation="@dimen/elevation"
 
-        />
-
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/forword_button" />
 </LinearLayout>
